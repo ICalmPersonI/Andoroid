@@ -23,10 +23,11 @@ class MainActivity : AppCompatActivity() {
         buttonListener(R.id.button8, "8")
         buttonListener(R.id.button9, "9")
 
-        plus()
+        operatorButton(R.id.addButton,"+")
+        operatorButton(R.id.multiplyButton,"*")
+        operatorButton(R.id.divideButton,"/")
         minus()
-        multiply()
-        divide()
+
         equal()
         dot()
         clear()
@@ -36,8 +37,8 @@ class MainActivity : AppCompatActivity() {
     private var cache: Double = 0.0
     private var lastOperation: String = "+"
 
-    private fun plus() {
-        val button: Button = findViewById(R.id.addButton)
+    private fun operatorButton(buttonId: Int, operator: String) {
+        val button: Button = findViewById(buttonId)
         val editText: EditText = findViewById(R.id.editText)
         button.setOnClickListener {
             cache = editText.text.toString().toDouble()
@@ -45,10 +46,11 @@ class MainActivity : AppCompatActivity() {
             if (isFractional.invoke(cache)) editText.hint = cache.toInt().toString()
             else editText.hint = cache.toString()
 
-            lastOperation = "+"
+            lastOperation = operator
             editText.setText("0")
         }
     }
+
 
     private fun minus() {
         val button: Button = findViewById(R.id.subtractButton)
@@ -64,34 +66,6 @@ class MainActivity : AppCompatActivity() {
                 lastOperation = "-"
                 editText.setText("0")
             }
-        }
-    }
-
-    private fun multiply() {
-        val button: Button = findViewById(R.id.multiplyButton)
-        val editText: EditText = findViewById(R.id.editText)
-        button.setOnClickListener {
-            cache = editText.text.toString().toDouble()
-
-            if (isFractional.invoke(cache)) editText.hint = cache.toInt().toString()
-            else editText.hint = cache.toString()
-
-            lastOperation = "*"
-            editText.setText("0")
-        }
-    }
-
-    private fun divide() {
-        val button: Button = findViewById(R.id.divideButton)
-        val editText: EditText = findViewById(R.id.editText)
-        button.setOnClickListener {
-            cache = editText.text.toString().toDouble()
-
-            if (isFractional.invoke(cache)) editText.hint = cache.toInt().toString()
-            else editText.hint = cache.toString()
-
-            lastOperation = "/"
-            editText.setText("0")
         }
     }
 
